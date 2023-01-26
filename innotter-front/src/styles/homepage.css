@@ -1,0 +1,321 @@
+.body {
+    font-family: 'Inter', sans-serif;
+    margin-top: 0.0em;
+    height: 100%;
+    width: 100%;
+}
+
+.button-sign-up {
+  background-color: #0070A0;
+  border: none;
+  color: white;
+  padding: 3%;
+  width: 50%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 auto;
+}
+
+.button-register {
+    background-color: #0070A0;
+    border: none;
+    color: white;
+    padding: 3%;
+    width: 50%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 auto;
+    margin-top: 7%;
+    margin-bottom: 7%;
+}
+
+
+.flex-list-my-page {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.upper-line {
+    margin-top: 0.0em;
+    background-color: #0070A0;
+    color: #0070A0;
+    width: 100%;
+    height: 0.5%;
+    max-height: 1%;
+    margin-bottom: 0;
+}
+
+
+.grid-logo-search {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 1fr;
+    grid-auto-rows: minmax(20%, auto);
+    grid-template-areas: "login search my_page";
+    background-color: white;
+    grid-gap: 10%;
+}
+
+.grid-item-log {
+    display: flex;
+    flex-direction: column;
+    padding: 1% 2% 2% 1%;
+    background-color: rgba(0, 112, 160, 11%);
+}
+
+.grid-item-search {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+
+.search-fields {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    width: auto;
+    height: 40%;
+    margin-top: 10%;
+}
+
+
+.innotter-logo {
+    margin-bottom: 3%;
+}
+
+
+.link-list {
+    color: black;
+    text-decoration: none;
+}
+
+
+.post-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.my-page {
+    width: 55%;
+    margin-top: 7%;
+}
+
+
+ul.horizontal-list {
+    list-style: none;
+}
+
+
+ul.horizontal-list li {
+    display: inline-block;
+    padding: 0 0.5rem;
+    min-width: 7rem;
+    text-align: center;
+    font-size: 17pt;
+    margin-top: 5%;
+}
+
+
+ul.horizontal-list li:not(:last-child) {
+    border-right: 1px solid #0070A0;
+  }
+
+
+/* ------------------adaptive--------------------- */
+
+@media only screen and (min-width: 1120px ) {
+
+.navbar-toggler {
+    display: none;
+}
+}
+
+
+@media only screen and (max-width: 1120px) {
+
+ul.horizontal-list li {
+    display: inline-block;
+    padding: 0 0.5rem;
+    min-width: 14rem;
+    text-align: center;
+    font-size: 17pt;
+    margin-top: 5%;
+    margin-bottom: 2%;
+} 
+
+
+ul.horizontal-list li:not(:last-child) {
+    margin-bottom: 2%;
+    border-bottom: 1px solid #0070A0;
+    border-right: none;
+  }
+
+
+.post-wrapper {
+    margin-top: 10%;
+}
+
+.navbar-toggler {
+    display: none;
+}
+}
+
+@media only screen and (max-width: 770px) {
+
+ul.horizontal-list li {
+    display: none;
+}
+
+
+.my-page {
+    width: 25%;
+    display: none;
+}
+
+
+.innotter-logo {
+   margin-left: 120%;
+   width: 100%;
+   z-index: 50;
+   margin-top: 4%;
+}
+
+
+.grid-item.grid-item-log {
+    background-color: white;
+}
+
+
+.button-sign-up {
+    display: none;
+}
+
+
+.button-register {
+    display: none;
+}
+
+
+.grid-item-search {
+    display: flex;
+    justify-content: flex-end;
+    width: 80%;
+    height: 50%;
+    margin-top: 15%;
+}
+
+
+.navbar-toggler {
+    display: flex;
+    margin-left: 250%;
+    min-width: 100%;
+    background-color: white;
+    border: 1px solid white;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.navbar-toggler:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    background-color: black;
+    height: 2px;
+    width: 80%;
+}
+
+
+.navbar-toggler:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    background-color: black;
+    height: 2px;
+    width: 80%;
+}
+
+ 
+.navbar-toggler span {
+    position: absolute;
+    top: 10px;
+    background-color: black;
+    height: 2px;
+    width: 80%;
+}
+
+.grid-item.grid-item-log {
+    width: 0;
+    margin-left: 40%;
+}
+
+}
+
+
+
+@media only screen and (max-width: 448px) {
+.navbar-toggler {
+    margin-left: 155%;
+    margin-top: 30%;
+    height: 100%;
+}
+}
+
+
+@media only screen and (max-width: 375px) {
+
+.grid-logo-search {
+    display: grid;
+    justify-content: flex-end;
+}
+
+
+.grid-item-search {
+    display: none;
+}
+
+
+.search-fields {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    width: auto;
+    height: 60%;
+    margin-top: 10%;
+    margin-left: 20em;
+    width: 80%;
+}
+
+.navbar-toggler:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    background-color: black;
+    height: 2px;
+    width: 80%;
+}
+
+
+.navbar-toggler:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    background-color: black;
+    height: 2px;
+    width: 80%;
+}
+
+ 
+.navbar-toggler span {
+    position: absolute;
+    top: 12px;
+    background-color: black;
+    height: 2px;
+    width: 80%;
+}
+}

@@ -1,0 +1,43 @@
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.register.register_wrapper {
+    background-color: rgba(0, 112, 160, 11%);
+    padding: 5%;
+    margin-top: 5%;
+    margin: 100px;
+}
+
+@media only screen and (max-width: 730px) {
+.register.register_wrapper {
+    width: 70%;
+    margin-left: 5em;
+}
+}
+
+
+@media only screen and (max-width: 528px) {
+.register.register_wrapper {
+    width: 70%;
+    margin-left: 3em;
+}
+}
+
+
+@media only screen and (max-width: 466px) {
+.register.register_wrapper {
+    width: 90%;
+    margin-left: 0.75em;
+}
+
+.question {
+    font-size: 10pt;
+}
+}
