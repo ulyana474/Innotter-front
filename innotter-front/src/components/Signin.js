@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
@@ -6,9 +6,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import SubmitForm from "./SubmitForm";
 import '../styles/signin.css'
+import { UserContext } from "./UserContext";
+import { signin } from "../utils/functions";
 
 const Signin = () => {
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
+  const {user, setUser} = useContext(UserContext)
 
   const formik = useFormik({
     initialValues: {
@@ -31,6 +34,7 @@ const Signin = () => {
 
   return (
     <div className="container">
+      <div>{JSON.stringify(user, null, 2)}</div>
       <div className={!isSubmitSuccess ? "signin signin_wrapper" : "signin signin_success"} x>
         {isSubmitSuccess ? (
           <SubmitForm />
@@ -82,7 +86,17 @@ const Signin = () => {
               <div className="error_msg">{formik.errors.password}</div>
             ) : null}
 
-            <button className="button-sign-in" type="submit">Sign in</button>
+            {user ? (
+            <button onClick={() => {
+                setUser(null)
+            }
+            } className="button-sign-in">logout</button>
+            ) : (
+            <button onClick={async () => {
+              const user = await signin();
+              setUser(user);
+            }} 
+              className="button-sign-in" type="submit">Sign in</button>)}
             <h3 className="signup-text"> Not a member? <span className="signup">Signup now</span></h3>
           </form>
         )}
