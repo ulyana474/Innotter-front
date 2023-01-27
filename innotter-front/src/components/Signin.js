@@ -4,14 +4,17 @@ import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import {useNavigate} from 'react-router-dom'
 import SubmitForm from "./SubmitForm";
 import '../styles/signin.css'
 import { UserContext } from "./UserContext";
 import { signin } from "../utils/functions";
+import Homepage from "./Homepage";
 
 const Signin = () => {
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
   const {user, setUser} = useContext(UserContext)
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -26,8 +29,7 @@ const Signin = () => {
       password: Yup.string().min(5).required("Password is required!"),
     }),
 
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: () => {
       setIsSubmitSuccess(true)
     },
   });
@@ -88,13 +90,16 @@ const Signin = () => {
 
             {user ? (
             <button onClick={() => {
-                setUser(null)
+                setUser(null);
             }
             } className="button-sign-in">logout</button>
             ) : (
             <button onClick={async () => {
-              const user = await signin();
+              let username = formik.values.username
+              let password = formik.values.password
+              const user = await signin(username, password);
               setUser(user);
+              navigate("/Innotter")
             }} 
               className="button-sign-in" type="submit">Sign in</button>)}
             <h3 className="signup-text"> Not a member? <span className="signup">Signup now</span></h3>

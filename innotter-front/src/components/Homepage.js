@@ -15,7 +15,7 @@ const Homepage = () => {
         <div className="grid-logo-search">
             <div className="grid-item grid-item-log">
                 <div className="innotter-logo">
-                    <img src={logo} alt="logo image"></img>
+                    <img src={logo} alt="logo"></img>
                 </div>
                 <Link to="/sign" className="button-sign-up">Sign in</Link>
                 <Link to="/register" className="button-register">Register</Link>
@@ -33,7 +33,7 @@ const Homepage = () => {
                 <Searchline />
             </div>
             <Menu active={menuActive} setActive={setMenuActive}/>
-            <div className="my-page"><img src={my_page}></img></div>
+            <div className="my-page"><img src={my_page} alt="my-page"></img></div>
         </div>
         <main className="post-wrapper">
             <Post id="upper-post"/>
