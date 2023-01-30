@@ -35,7 +35,6 @@ const Signin = () => {
 
   return (
     <div className="container">
-      <div>{JSON.stringify(user, null, 2)}</div>
       <div className={!isSubmitSuccess ? "signin signin_wrapper" : "signin signin_success"} x>
         {isSubmitSuccess ? (
           <SubmitForm />

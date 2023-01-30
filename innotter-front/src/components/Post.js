@@ -6,7 +6,7 @@ import like from '../images/like.svg'
 import liked from '../images/liked.svg'
 
 
-function Post() {
+function Post(props) {
     const [img, setImg] = useState(false);
 
     const imgChangeHandler = () => {
@@ -26,10 +26,10 @@ function Post() {
                 roundedSize="13"
                 borderRadius="70"
                 />
-                <p className="post-username">username</p>
-                <p className="post-created-time">12.01.2023 8pm</p>
+                <p className="post-username">{props.owner}</p>
+                <p className="post-created-time">{props.date}</p>
             </div>
-            <p className="post-text">Far quitting dwelling graceful the likewise received building. An fact so to that show am shed sold cold. Unaffected remarkably get yet introduced excellence terminated led. Result either design saw she esteem and. On ashamed no inhabit ferrars it ye besides resolve. Own judgment directly few trifling. Elderly as pursuit at regular do parlors. Rank what has into fond she</p>
+            <p className="post-text">{props.content}</p>
             <div className="grid-post-reply-like">
                 <form>
                     <input type="text" className="post-reply"></input>

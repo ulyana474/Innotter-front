@@ -6,7 +6,7 @@ import '../styles/users.css'
 
 const UserItem = (props) => {
     return(<div className="user-block">
-    <Link to="/user-account" className="users-username">{props.username}</Link>
+    <Link to="/user-account" className="users-username" state={props.id}>{props.username}</Link>
     <div className="statistics">
         <ul className="stat-list">
             <li>173</li>

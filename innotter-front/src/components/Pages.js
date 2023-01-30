@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import '../styles/searchline.css'
 import '../styles/users.css'
 import '../styles/homepage.css'
@@ -6,11 +6,23 @@ import '../styles/pages.css'
 import my_page from '../images/my_page.svg';
 import Page from "./Page";
 import { UserContext } from "./UserContext";
+import { pages } from "../utils/functions";
 
 const Pages = () => {
+    const [items, setItems] = useState([]);
     const user = useContext(UserContext)
+    useEffect(() => {
+        const promise = pages()
+        promise.then((res) => {
+            console.log(res)
+            setItems(res)
+        .catch((err) => console.log(err))
+        });
+    }, [])
+    const renderList = items.map((item) => 
+    <Page name={item.name} description={item.description}/>
+    );
     return(<div>
-        <div>{JSON.stringify(user, null, 2)}</div>
         <div className="upper-line">line</div>
         <div className="grid-logo">
             <div className="logo-users">
@@ -25,9 +37,7 @@ const Pages = () => {
             <div className="my-page"><img src={my_page} alt="my_page"></img></div>
         </div>
         <div className="flex-pages">
-            <Page />
-            <Page />
-            <Page />
+            {renderList}
         </div>
     </div>)
 }

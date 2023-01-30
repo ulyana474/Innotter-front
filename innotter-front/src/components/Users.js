@@ -9,7 +9,6 @@ import UserItem from "./UserItem";
 
 const Users = () => {
     const [items, setItems] = useState([]);
-    const user = useContext(UserContext)
     useEffect(() => {
         const promise = users()
         promise.then((res) => {
@@ -18,7 +17,7 @@ const Users = () => {
         });
     }, [])
     const renderList = items.map((item) => 
-    <UserItem username={item.username}/>
+    <UserItem username={item.username} id={item.id}/>
     );
     return(<div>
         <div className="upper-line">line</div>
