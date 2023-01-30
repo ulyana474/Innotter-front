@@ -5,12 +5,16 @@ import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import { useFormik } from "formik";
+import {useNavigate} from 'react-router-dom'
 import * as Yup from "yup";
 import SubmitForm from "./SubmitForm";
 import '../styles/register.css'
+import {register} from "../utils/functions.js";
 
 const Signin = () => {
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
+  const [isRegistered, setRegister] = useState(false)
+  let navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -23,11 +27,7 @@ const Signin = () => {
         .min(2, "Minimum 2 characters")
         .max(20, "Maximum 20 cheracters"),
       password: Yup.string()
-        .min(8).required("Password is required!")
-        .matches(
-            "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
-            "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-          ),
+        .min(5).required("Password is required!"),
       confirm_pass: Yup.string()
         .required("Confirm password, please!")
         .oneOf([Yup.ref("password"), null], "Passwords must match"),
@@ -180,7 +180,18 @@ const Signin = () => {
               value={formik.values.last_name}
             />
 
-            <button className="button-sign-in" type="submit">Register</button>
+            <button onClick={async () => {
+                let username = formik.values.username
+                let password = formik.values.password
+                let confirm_pass = formik.values.confirm_pass
+                let email = formik.values.email
+                let first_name = formik.values.first_name
+                let last_name = formik.values.last_name
+                let isRegistered = await register(username, password, confirm_pass, email, first_name, last_name);
+                setRegister(isRegistered)
+                navigate("/Innotter")
+            }} 
+            className="button-sign-in" type="submit">Register</button>
             <h3 className="question"> Already a member? <span className="signup">Sign in</span></h3>
           </form>
         )}

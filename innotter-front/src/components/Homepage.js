@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import '../styles/homepage.css'
 import { Link } from 'react-router-dom'
 import Searchline from "./Searchline";
@@ -6,11 +6,15 @@ import logo from '../images/logo.svg';
 import my_page from '../images/my_page.svg';
 import Post from "./Post";
 import Menu from "./Menu";
+import { UserContext } from "./UserContext";
+import { users } from "../utils/functions";
 
 
 const Homepage = () => {
     const [menuActive, setMenuActive] = useState(false)
+    const user = useContext(UserContext)
     return( <div className="body">
+        <div>{JSON.stringify(user, null, 2)}</div>
         <div className="upper-line">line</div>
         <div className="grid-logo-search">
             <div className="grid-item grid-item-log">

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import './App.css';
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Homepage from './components/Homepage';
@@ -10,11 +10,17 @@ import Tags from "./components/Tags";
 import UserAcc from "./components/UserAcc";
 import UserPage from "./components/UserPage";
 import { UserContext } from "./components/UserContext";
+import { users } from "./utils/functions";
 
 function App() {
-  const[user, setUser] = useState(null)
+  const initialState = () => JSON.parse(localStorage.getItem("user")) || null
+  const[user, setUser] = useState(initialState)
 
   const providerValue = useMemo(() => ({user, setUser}), [user, setUser])
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user))
+  }, [user])
 
   return (
     <div className="App">

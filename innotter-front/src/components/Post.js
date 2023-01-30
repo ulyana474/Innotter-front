@@ -7,7 +7,6 @@ import liked from '../images/liked.svg'
 
 
 function Post() {
-    const images = {like, liked};
     const [img, setImg] = useState(false);
 
     const imgChangeHandler = () => {
