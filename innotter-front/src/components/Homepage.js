@@ -23,7 +23,7 @@ const Homepage = () => {
         });
     }, [])
     const renderList = items.map((item) => 
-    <Post date={item.created_at} content={item.content} owner={item.page}/>
+    <Post date={item.created_at} content={item.content} owner={item.username}/>
     );
     return( <div className="body">
         <div className="upper-line">line</div>

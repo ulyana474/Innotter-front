@@ -1,10 +1,7 @@
-import Cookies from 'js-cookie'
 import { format } from 'react-string-format';
 
 
 export const signin = async (username, password) => {
-    // let refresh_token = Cookies.get('refreshtoken')
-    // console.log("refresh", refresh_token)
     let response = await fetch('http://127.0.0.1:8000/login', {
         method:'POST',
         headers:{
