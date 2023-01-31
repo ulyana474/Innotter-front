@@ -1,7 +1,10 @@
 import { format } from 'react-string-format';
+import Cookies from 'universal-cookie';
 
 
 export const signin = async (username, password) => {
+    // const cookies = new Cookies();
+    // console.log(cookies.get('refreshtoken'));
     let response = await fetch('http://127.0.0.1:8000/login', {
         method:'POST',
         headers:{
@@ -112,6 +115,24 @@ export const tags = async () => {
             'Content-Type':'application/json',
             'Authorization': token
         },
+    })
+    let data = await response.json()
+    return(
+        data
+    );
+};
+
+
+export const create_tag = async (tag_name, page_name) => {
+    let user_obj = JSON.parse(localStorage.getItem("user"))
+    let token = user_obj["access_token"]
+    let response = await fetch(format('http://127.0.0.1:8000/pages/{0}/tagCreate/?tag={1}', page_name, tag_name), {
+        method:'PATCH',
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify({'name': tag_name})
     })
     let data = await response.json()
     return(

@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
+import { Link } from 'react-router-dom'
 import '../styles/tags.css'
 import my_page from '../images/my_page.svg';
 import Tag from "./Tag";
@@ -21,7 +22,7 @@ const Tags = () => {
     return(<>
         <div className="upper-line">line</div>
         <div className="grid-tags">
-            <button className="new-tag-button">new tag</button>
+            <Link to="/create-tag" className="new-tag-button">new tag</Link>
             <img src={my_page} className="tags-my-page" alt="my_page"></img>
         </div>
         <div className="tags-logo">
