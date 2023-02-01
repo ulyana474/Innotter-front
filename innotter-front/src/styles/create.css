@@ -1,0 +1,42 @@
+.create-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 7% auto;
+    background-color: rgba(0, 112, 160, 11%);
+    width: 50%;
+    height: 15em;
+}
+
+
+.input-tag-name {
+    background-color: white;
+    border: 1px solid rgba(12, 133, 184, 0.11);
+    margin-top: 5%;
+}
+
+
+.create-tag-button {
+    width: 5em;
+    height: 2em;
+    background-color: #0070A0;
+    color: white;
+    border: 1px solid rgba(12, 133, 184, 0.11);
+    margin-top: 3%;
+}
+
+
+.choose-pages {
+    width: auto;
+    height: 1em;
+    margin-bottom: 2%;
+}
+
+
+@media only screen and (max-width: 672px ) {
+.create-tag-block {
+    width: 80%;
+    height: 15em;
+}
+}

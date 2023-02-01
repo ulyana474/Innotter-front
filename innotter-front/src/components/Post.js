@@ -4,6 +4,7 @@ import '../styles/post.css'
 import picture from '../logo.svg'
 import like from '../images/like.svg'
 import liked from '../images/liked.svg'
+import moment from 'moment';
 
 
 function Post(props) {
@@ -27,7 +28,7 @@ function Post(props) {
                 borderRadius="70"
                 />
                 <p className="post-username">{props.owner}</p>
-                <p className="post-created-time">{props.date}</p>
+                <p className="post-created-time">{moment(props.date).format("YYYY/MM/DD kk:mm:ss")}</p>
             </div>
             <p className="post-text">{props.content}</p>
             <div className="grid-post-reply-like">

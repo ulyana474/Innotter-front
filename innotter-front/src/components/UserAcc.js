@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
 import {useLocation} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../styles/account.css'
 import logo from '../images/logo.svg'
 import image from '../images/page.svg'
@@ -25,7 +26,7 @@ const UserAcc = () => {
             <div className="account-sidebar">   
                 <img src={logo} className="img-sidebar" alt="logo"></img>
                 <p className="account-email">{userData.email}</p>
-                <button className="new-page-button">new page</button>
+                <Link to="/create-page" className="new-page-button">new page</Link>
             </div>
             </div>
             <div className="flex-user-info">

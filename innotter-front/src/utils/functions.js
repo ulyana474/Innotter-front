@@ -1,5 +1,6 @@
 import { format } from 'react-string-format';
 import Cookies from 'universal-cookie';
+import uuid from 'react-uuid';
 
 
 export const signin = async (username, password) => {
@@ -87,6 +88,25 @@ export const pages = async () => {
     );
 };
 
+
+export const create_page = async (name, description, uuidValue) => {
+    uuidValue = uuid().slice(0, 15)
+    console.log(uuidValue)
+    let user_obj = JSON.parse(localStorage.getItem("user"))
+    let token = user_obj["access_token"]
+    let response = await fetch(format('http://127.0.0.1:8000/pages/'), {
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify({'name': name, 'description': description, 'uuid': uuidValue})
+    })
+    let data = await response.json()
+    return(
+        data
+    );
+};
 
 
 export const posts = async () => {
