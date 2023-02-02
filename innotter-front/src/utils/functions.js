@@ -94,7 +94,7 @@ export const create_page = async (name, description, uuidValue) => {
     console.log(uuidValue)
     let user_obj = JSON.parse(localStorage.getItem("user"))
     let token = user_obj["access_token"]
-    let response = await fetch(format('http://127.0.0.1:8000/pages/'), {
+    let response = await fetch('http://127.0.0.1:8000/pages/', {
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -118,6 +118,24 @@ export const posts = async () => {
             'Content-Type':'application/json',
             'Authorization': token
         },
+    })
+    let data = await response.json()
+    return(
+        data
+    );
+};
+
+
+export const create_post = async (page, content) => {
+    let user_obj = JSON.parse(localStorage.getItem("user"))
+    let token = user_obj["access_token"]
+    let response = await fetch('http://127.0.0.1:8000/posts/', {
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify({'page': page, 'content': content})
     })
     let data = await response.json()
     return(

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import {useNavigate} from 'react-router-dom'
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import '../styles/create.css'
@@ -7,6 +8,7 @@ import { UserContext } from "./UserContext";
 
 
 const CreateTag = () => {
+    let navigate = useNavigate()
     const user = useContext(UserContext)
     let user_obj = JSON.parse(localStorage.getItem("user"))
     let pages = user_obj["user"]["pages"]
@@ -18,7 +20,7 @@ const CreateTag = () => {
     <TextField
           name="page_name"
           placeholder="Page"
-          className="input-tag-name"
+          className="input"
           InputProps={{
             startAdornment: (
               <InputAdornment>
@@ -33,7 +35,7 @@ const CreateTag = () => {
     <TextField
           name="tag_name"
           placeholder="Tag name"
-          className="input-tag-name"
+          className="input"
           InputProps={{
             startAdornment: (
               <InputAdornment>
@@ -46,7 +48,7 @@ const CreateTag = () => {
           onChange={(newValue) => setTagValue(newValue.target.value)}
     />
     <button className="create-tag-button" 
-    onClick={async () => await create_tag(tagValue, pageValue)}>create</button>
+    onClick={async () => {await create_tag(tagValue, pageValue); navigate("/Innotter")}}>create</button>
 </div>
 </>)
 }

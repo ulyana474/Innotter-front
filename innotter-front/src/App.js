@@ -12,6 +12,7 @@ import UserPage from "./components/UserPage";
 import { UserContext } from "./components/UserContext";
 import CreateTag from "./components/CreateTag";
 import CreatePage from "./components/CreatePage";
+import CreatePost from "./components/CreatePost";
 
 function App() {
   const initialState = () => JSON.parse(localStorage.getItem("user")) || null
@@ -38,6 +39,7 @@ function App() {
               <Route path="/user-page" element={<UserPage />}></Route>
               <Route path="/create-tag" element={<CreateTag />}></Route>
               <Route path="/create-page" element={<CreatePage />}></Route>
+              <Route path="/create-post" element={<CreatePost />}></Route>
           </Routes>
           </UserContext.Provider>
       </BrowserRouter>

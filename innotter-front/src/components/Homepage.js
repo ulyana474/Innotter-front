@@ -13,7 +13,6 @@ import { posts, users } from "../utils/functions";
 const Homepage = () => {
     const [menuActive, setMenuActive] = useState(false)
     const [items, setItems] = useState([]);
-    const user = useContext(UserContext)
     useEffect(() => {
         const promise = posts()
         promise.then((res) => {
@@ -48,8 +47,9 @@ const Homepage = () => {
                 <Searchline />
             </div>
             <Menu active={menuActive} setActive={setMenuActive}/>
-            <div className="my-page"><img src={my_page} alt="my-page"></img></div>
+            {user ? (<div className="my-page"><img src={my_page} alt="my-page"></img></div>) : (<div></div>)}
         </div>
+        {user ? (<Link to="/create-post" className="create-post-btn">create post</Link>) : (<div></div>)}
         <main className="post-wrapper">
             {renderList}
         </main>
