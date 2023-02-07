@@ -7,22 +7,24 @@ import my_page from '../images/my_page.svg';
 import Post from "./Post";
 import Menu from "./Menu";
 import { UserContext } from "./UserContext";
-import { posts, users } from "../utils/functions";
+import { Fetcher } from "../utils/fetcher";
 
 
 const Homepage = () => {
     const [menuActive, setMenuActive] = useState(false)
     const [items, setItems] = useState([]);
-    useEffect(() => {
-        const promise = posts()
-        promise.then((res) => {
-            console.log(res)    
+    const {user, setUser} = useContext(UserContext)
+    useEffect (() => {
+        const fetcher = new Fetcher()
+        const postPromise = fetcher.request_get('http://127.0.0.1:8000/posts')
+        postPromise.then((res) => {
+        if (res.length !== 0)    
             setItems(res)
         .catch((err) => console.log(err))
-        });
-    }, [])
+    });
+    }, [user])
     const renderList = items.map((item) => 
-    <Post date={item.created_at} content={item.content} owner={item.username}/>
+    <Post id={item.id} date={item.created_at} content={item.content} owner={item.username}/>
     );
     return( <div className="body">
         <div className="upper-line">line</div>

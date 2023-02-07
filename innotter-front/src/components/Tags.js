@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import '../styles/tags.css'
 import my_page from '../images/my_page.svg';
 import Tag from "./Tag";
-import {tags} from '../utils/functions.js'
+import {Fetcher} from '../utils/fetcher.js'
 
 
 const Tags = () => {
     const [items, setItems] = useState([]);
     useEffect(() => {
-        const promise = tags()
+        const fetcher = new Fetcher()
+        const promise = fetcher.request_get('http://127.0.0.1:8000/tags')
         promise.then((res) => {
             console.log(res)
             setItems(res)

@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import '../styles/create.css'
-import { create_post } from "../utils/functions";
+import { Fetcher } from "../utils/fetcher";
 
 
 const CreatePost = () => {
@@ -12,6 +12,7 @@ const CreatePost = () => {
     let pages = user_obj["user"]["pages"]
     const [pageValue, setPageValue] = useState(null)
     const [contentValue, setContentValue] = useState(null)
+    const fetcher = new Fetcher()
     return(<>
     <div className="choose-pages">{JSON.stringify(pages)}</div>
     <div className="create-block">
@@ -46,7 +47,8 @@ const CreatePost = () => {
           onChange={(newValue) => setContentValue(newValue.target.value)}
     />
     <button className="create-tag-button" 
-    onClick={async () => {await create_post(pageValue, contentValue); navigate("/Innotter")}}>create</button>
+    onClick={async () =>
+            {await fetcher.request('http://127.0.0.1:8000/posts/', 'POST', { 'page': pageValue, 'content': contentValue }); navigate("/Innotter")}}>create</button>
 </div>
 </>)
 }

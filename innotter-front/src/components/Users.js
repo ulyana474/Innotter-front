@@ -4,13 +4,14 @@ import '../styles/users.css'
 import '../styles/homepage.css'
 import my_page from '../images/my_page.svg';
 import { UserContext } from "./UserContext";
-import {users} from '../utils/functions.js'
+import {Fetcher} from '../utils/fetcher.js'
 import UserItem from "./UserItem";
 
 const Users = () => {
     const [items, setItems] = useState([]);
     useEffect(() => {
-        const promise = users()
+        const fetcher = new Fetcher()
+        const promise = fetcher.request_get('http://127.0.0.1:8000/users')
         promise.then((res) => {
             setItems(res)
         .catch((err) => console.log(err))

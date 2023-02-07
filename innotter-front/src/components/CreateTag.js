@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
 import {useNavigate} from 'react-router-dom'
+import { format } from 'react-string-format';
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import '../styles/create.css'
-import { create_tag } from "../utils/functions";
+import { Fetcher } from "../utils/fetcher";
 import { UserContext } from "./UserContext";
 
 
@@ -14,6 +15,7 @@ const CreateTag = () => {
     let pages = user_obj["user"]["pages"]
     const [pageValue, setPageValue] = useState(null)
     const [tagValue, setTagValue] = useState(null)
+    const fetcher = new Fetcher()
     return(<>
     <div className="choose-pages">{JSON.stringify(pages)}</div>
     <div className="create-block">
@@ -48,7 +50,9 @@ const CreateTag = () => {
           onChange={(newValue) => setTagValue(newValue.target.value)}
     />
     <button className="create-tag-button" 
-    onClick={async () => {await create_tag(tagValue, pageValue); navigate("/Innotter")}}>create</button>
+    onClick={async () =>
+            {await fetcher.request(format('http://127.0.0.1:8000/pages/{0}/tagCreate/?tag={1}', pageValue, tagValue), 'PATCH', { 'name': tagValue });
+             navigate("/Innotter")}}>create</button>
 </div>
 </>)
 }

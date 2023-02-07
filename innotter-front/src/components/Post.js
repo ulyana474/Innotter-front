@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ReactRoundedImage from "react-rounded-image";
+import { format } from 'react-string-format';
 import '../styles/post.css'
+import unliked_path from '../images/like.svg'
+import liked_path from '../images/liked.svg'
 import picture from '../logo.svg'
-import like from '../images/like.svg'
-import liked from '../images/liked.svg'
 import moment from 'moment';
+import { Fetcher } from "../utils/fetcher";
+import { UserContext } from "./UserContext";
+import {likeHandler} from "../utils/responseHandlers"
 
 
 function Post(props) {
-    const [img, setImg] = useState(false);
+    const [likeResponse, setLikeResponse] = useState(null);
+    const {user, setUser} = useContext(UserContext)
+    let fetcher = new Fetcher()
 
-    const imgChangeHandler = () => {
-        if(!img) {
-            setImg(true);
-        }else{
-            setImg(false)
-        }
-    };
+    const sendRequestLike = async() => {
+        const likePromise = fetcher.request_get(format('http://127.0.0.1:8000/postLike/{0}', props.id));
+        likePromise.then((res) => {
+            setLikeResponse(res)
+        likePromise.catch((err) => console.log(err))
+        })
+    }
+  
     return(
         <div className="post-block">
             <div className="grid-post-info">
@@ -35,7 +42,8 @@ function Post(props) {
                 <form>
                     <input type="text" className="post-reply"></input>
                 </form>
-                <img src={!img ? like : liked} alt='like' className="post-like" onClick={imgChangeHandler}></img>
+                <img src={liked_path} alt='like' className="post-like"
+                onClick={() => {sendRequestLike();}}></img>
             </div>
         </div>
     )

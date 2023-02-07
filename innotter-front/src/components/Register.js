@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom'
 import * as Yup from "yup";
 import SubmitForm from "./SubmitForm";
 import '../styles/register.css'
-import {register} from "../utils/functions.js";
+import {Fetcher} from "../utils/fetcher.js";
 
 const Signin = () => {
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
@@ -187,7 +187,9 @@ const Signin = () => {
                 let email = formik.values.email
                 let first_name = formik.values.first_name
                 let last_name = formik.values.last_name
-                let isRegistered = await register(username, password, confirm_pass, email, first_name, last_name);
+                let body = { 'username': username, 'password': password, 'password2': confirm_pass, 'email': email, 'first_name': first_name, 'last_name': last_name }
+                let fetcher = new Fetcher()
+                let isRegistered = fetcher.request_login_register('http://127.0.0.1:8000/register', 'POST', body);
                 setRegister(isRegistered)
                 navigate("/Innotter")
             }} 

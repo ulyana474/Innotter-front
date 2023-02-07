@@ -6,13 +6,14 @@ import '../styles/pages.css'
 import my_page from '../images/my_page.svg';
 import Page from "./Page";
 import { UserContext } from "./UserContext";
-import { pages } from "../utils/functions";
+import { Fetcher } from "../utils/fetcher";
 
 const Pages = () => {
     const [items, setItems] = useState([]);
     const user = useContext(UserContext)
     useEffect(() => {
-        const promise = pages()
+        const fetcher = new Fetcher()
+        const promise = fetcher.request_get('http://127.0.0.1:8000/pages')
         promise.then((res) => {
             console.log(res)
             setItems(res)

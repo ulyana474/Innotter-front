@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom'
 import SubmitForm from "./SubmitForm";
 import '../styles/signin.css'
 import { UserContext } from "./UserContext";
-import { signin } from "../utils/functions";
+import { Fetcher } from "../utils/fetcher";
 
 const Signin = () => {
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
@@ -89,14 +89,19 @@ const Signin = () => {
             {user ? (
             <button onClick={() => {
                 setUser(null);
+                localStorage.setItem('user', null)
             }
             } className="button-sign-in">logout</button>
             ) : (
             <button onClick={async () => {
               let username = formik.values.username
               let password = formik.values.password
-              const user = await signin(username, password);
-              setUser(user);
+              let fetcher = new Fetcher()
+              let userPromise = fetcher.request_login_register('http://127.0.0.1:8000/login', 'POST', {'username': username, 'password': password});
+              userPromise.then((res) => {
+                setUser(res)
+                localStorage.setItem('user', JSON.stringify(res))
+              })
               navigate("/Innotter")
             }} 
               className="button-sign-in" type="submit">Sign in</button>)}

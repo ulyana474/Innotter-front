@@ -15,13 +15,13 @@ import CreatePage from "./components/CreatePage";
 import CreatePost from "./components/CreatePost";
 
 function App() {
-  const initialState = () => JSON.parse(localStorage.getItem("user")) || null
+  const initialState = localStorage.getItem("user")
   const[user, setUser] = useState(initialState)
 
   const providerValue = useMemo(() => ({user, setUser}), [user, setUser])
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(user))
+    localStorage.getItem("user")
   }, [user])
 
   return (
