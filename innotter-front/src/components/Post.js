@@ -6,7 +6,7 @@ import picture from '../logo.svg'
 import moment from 'moment';
 import { Fetcher } from "../utils/fetcher";
 import { UserContext } from "./UserContext";
-import {likeHandler} from "../utils/responseHandlers"
+import {ResponseHandler} from "../utils/responseHandlers"
 
 
 function Post(props) {
@@ -14,18 +14,18 @@ function Post(props) {
     const {user, setUser} = useContext(UserContext)
     let fetcher = new Fetcher()
     const imgChangeHandler = () => {
-        const resp_obj = likeResponse
-        if (resp_obj === null){
-            return likeHandler(props.getPosts, user)
+        const handler = new ResponseHandler(user)
+        if (likeResponse === null){
+            return handler.checkUserInLikesArray(props.getPosts)
         }
-        return likeHandler(likeResponse, user)
+        return handler.checkUserInLikesArray(likeResponse)
     };
 
     const sendRequestLike = async() => {
-        const likePromise = fetcher.request_get(format('http://127.0.0.1:8000/postLike/{0}', props.id));
-        likePromise.then((res) => {
+        const likeResponse = fetcher.request_get(format('http://127.0.0.1:8000/postLike/{0}', props.id));
+        likeResponse.then((res) => {
             setLikeResponse(res)
-        likePromise.catch((err) => console.log(err))
+        likeResponse.catch((err) => console.log(err))
         })
     }
   

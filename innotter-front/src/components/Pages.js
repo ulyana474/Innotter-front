@@ -21,7 +21,7 @@ const Pages = () => {
         });
     }, [])
     const renderList = items.map((item) => 
-    <Page uuid={item.uuid} tags={item.tags} name={item.name} description={item.description} id={item.id} username={item.username}/>
+    <Page page={item} uuid={item.uuid} tags={item.tags} name={item.name} description={item.description} id={item.id} username={item.username}/>
     );
     return(<div>
         <div className="upper-line">line</div>

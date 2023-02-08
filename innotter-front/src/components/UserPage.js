@@ -1,18 +1,42 @@
-import React from "react";
+import React, {useState, useContext} from "react";
 import {useLocation} from 'react-router-dom'
+import { format } from 'react-string-format';
 import '../styles/userPage.css'
 import my_page from '../images/my_page.svg';
 import logo from '../images/logo.svg';
 import image from '../images/page.svg'
-import Tag from "./Tag";
+import {Fetcher} from '../utils/fetcher'
+import { UserContext } from "./UserContext";
+import { ResponseHandler } from "../utils/responseHandlers";
+
 
 const UserPage = () => {
+    const fetcher = new Fetcher()
+    const [followResponse, setFollowResponse] = useState(null);
+    const {user, setUser} = useContext(UserContext)
     let location = useLocation()
-    console.log(location.state.tags)
+    const followTextHandler = () => {
+        const handler = new ResponseHandler(user)
+        if (followResponse === null) {
+            return handler.checkUserInFollowersArray(location.state.page)
+        }
+        return handler.checkUserInFollowersArray(followResponse)
+    };
+
+    const sendRequestFollow = async() => {
+        const followResponse = fetcher.request_get(format('http://127.0.0.1:8000/followToggle/{0}/', location.state.id), 'GET');
+        followResponse.then((res) => {
+            setFollowResponse(res)
+        followResponse.catch((err) => console.log(err))
+        })
+    }
     return(<>
         <div className="upper-line">line</div>
         <div className="grid-user-page">
-            <img src={logo} className="logo-user-page" alt="logo"></img>
+            <div className="flex-logo-follow">
+                <img src={logo} className="logo-user-page" alt="logo"></img>
+                <button onClick={() => {sendRequestFollow(); followTextHandler()}} className="follow-btn">{followTextHandler()}</button>
+            </div>
             <div className="user-page-block">
                 <div className="page-uuid">{location.state.uuid}</div>
                 <div className="flex-row-page-info">
