@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ReactRoundedImage from "react-rounded-image";
+import { format } from 'react-string-format';
 import '../styles/post.css'
 import picture from '../logo.svg'
-import like from '../images/like.svg'
-import liked from '../images/liked.svg'
+import moment from 'moment';
+import { Fetcher } from "../utils/fetcher";
+import { UserContext } from "./UserContext";
+import {ResponseHandler} from "../utils/responseHandlers"
 
 
-function Post() {
-    const images = {like, liked};
-    const [img, setImg] = useState(false);
-
+function Post(props) {
+    const [likeResponse, setLikeResponse] = useState(null);
+    const {user, setUser} = useContext(UserContext)
+    let fetcher = new Fetcher()
     const imgChangeHandler = () => {
-        if(!img) {
-            setImg(true);
-        }else{
-            setImg(false)
+        const handler = new ResponseHandler(user)
+        if (likeResponse === null){
+            return handler.checkUserInLikesArray(props.getPosts)
         }
+        return handler.checkUserInLikesArray(likeResponse)
     };
+
+    const sendRequestLike = async() => {
+        const likeResponse = fetcher.request_get(format('http://127.0.0.1:8000/postLike/{0}', props.id));
+        likeResponse.then((res) => {
+            setLikeResponse(res)
+        likeResponse.catch((err) => console.log(err))
+        })
+    }
+  
     return(
         <div className="post-block">
             <div className="grid-post-info">
@@ -27,15 +39,16 @@ function Post() {
                 roundedSize="13"
                 borderRadius="70"
                 />
-                <p className="post-username">username</p>
-                <p className="post-created-time">12.01.2023 8pm</p>
+                <p className="post-username">{props.owner}</p>
+                <p className="post-created-time">{moment(props.date).format("YYYY/MM/DD kk:mm:ss")}</p>
             </div>
-            <p className="post-text">Far quitting dwelling graceful the likewise received building. An fact so to that show am shed sold cold. Unaffected remarkably get yet introduced excellence terminated led. Result either design saw she esteem and. On ashamed no inhabit ferrars it ye besides resolve. Own judgment directly few trifling. Elderly as pursuit at regular do parlors. Rank what has into fond she</p>
+            <p className="post-text">{props.content}</p>
             <div className="grid-post-reply-like">
                 <form>
                     <input type="text" className="post-reply"></input>
                 </form>
-                <img src={!img ? like : liked} alt='like' className="post-like" onClick={imgChangeHandler}></img>
+                <img src={imgChangeHandler()} alt='like' className="post-like"
+                onClick={() => {sendRequestLike();}}></img>
             </div>
         </div>
     )

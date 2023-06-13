@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import {useNavigate} from 'react-router-dom'
 import SubmitForm from "./SubmitForm";
 import '../styles/signin.css'
+import { UserContext } from "./UserContext";
+import { Fetcher } from "../utils/fetcher";
 
 const Signin = () => {
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
+  const {user, setUser} = useContext(UserContext)
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -23,8 +28,7 @@ const Signin = () => {
       password: Yup.string().min(5).required("Password is required!"),
     }),
 
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: () => {
       setIsSubmitSuccess(true)
     },
   });
@@ -82,7 +86,25 @@ const Signin = () => {
               <div className="error_msg">{formik.errors.password}</div>
             ) : null}
 
-            <button className="button-sign-in" type="submit">Sign in</button>
+            {user ? (
+            <button onClick={() => {
+                setUser(null);
+                localStorage.setItem('user', null)
+            }
+            } className="button-sign-in">logout</button>
+            ) : (
+            <button onClick={async () => {
+              let username = formik.values.username
+              let password = formik.values.password
+              let fetcher = new Fetcher()
+              let userPromise = fetcher.request_login_register('http://127.0.0.1:8000/login', 'POST', {'username': username, 'password': password});
+              userPromise.then((res) => {
+                setUser(res)
+                localStorage.setItem('user', JSON.stringify(res))
+              })
+              navigate("/Innotter")
+            }} 
+              className="button-sign-in" type="submit">Sign in</button>)}
             <h3 className="signup-text"> Not a member? <span className="signup">Signup now</span></h3>
           </form>
         )}

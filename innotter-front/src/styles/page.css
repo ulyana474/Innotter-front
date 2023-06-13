@@ -38,8 +38,8 @@
 
 .see-page-button {
   background-color: rgba(0, 112, 160, 11%);
-  border: none;
-  color: black;
+  border: 1px solid #0070A0;
+  color:rgba(1, 85, 121, 0.233);
   padding: 3%;
   width: 30%;
   text-align: center;
@@ -47,6 +47,15 @@
   display: inline-block;
   font-size: 15pt;
   margin: 0 auto;
+}
+
+
+.see-page-button:hover {
+    color: #0070A0;
+}
+
+.see-page-button:active {
+    color: #0070A0;
 }
 
 

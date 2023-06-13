@@ -34,6 +34,29 @@
 }
 
 
+a.create-post-btn {
+    border: 1px solid #0070A0;
+    background-color: rgba(0, 112, 160, 11%);
+    color: rgba(1, 85, 121, 0.233);
+    padding: 1%;
+    width: 14%;
+    text-decoration: none;
+    font-size: 16pt;
+    margin-bottom: 4%;
+    display: inline-block;
+}
+
+
+.create-post-btn:hover {
+    color: #0070A0;
+}
+
+
+.create-post-btn:active {
+    color: #0070A0;
+}
+
+
 .flex-list-my-page {
     display: flex;
     flex-direction: row;
